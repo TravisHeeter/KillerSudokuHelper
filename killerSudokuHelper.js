@@ -52,3 +52,50 @@ document.onkeypress = function(e) {
     if(e.which === 109)
         fillSum()
 };
+
+
+////// SIDEWAYS COMPUTATION ////////
+
+// Reset the analytical area
+$('#sidewaysWrapper').remove()
+
+// Adds an input for a number that should be compared to the comparers.
+function addInput(){
+  $('#sidewaysOptions').append(`<input type='text' class='sidewaysOption' placeholder='input'/>`)
+}
+
+// Adds an input for a number that should be compared to by the inputs.
+function addComparer(){
+  $('#sidewaysComparers').append(`<input type='text' class='sidewaysComparer' placeholder='Comparer'/>`)
+}
+
+// Creates the analytical area, buttons and initial inputs.
+$('#fortyFives').append(`
+  <div id='sidewaysWrapper'>
+    <div id='sidewaysOptionsWrapper' style='padding:5px 0; margin-bottom:5px; border-top: 1px solid white; border-bottom:1px solid white'>
+      Sideways Checking
+      <div id='sidewaysOptions'><input type='text' class='sidewaysOption' placeholder='Input'/></div>
+      <input type='button' onClick='addInput()' value='Add Input'>
+    </div>
+    <div id='sidewaysComparersWrapper' style='padding-bottom:5px; margin-bottom:5px; border-bottom:1px solid white'>
+      <div id='sidewaysComparers'><input class='sidewaysComparer' style='margin: 5px 0' placeholder='Comparer'/></div>
+      <input type='button' onClick='addComparer()' value='Add Comparer'>
+    </div>
+    <input type='button' value='Compute' onClick='computeSidewaysAnalysis()'/>
+  </div>
+`)
+
+/*function computeSidewaysAnalysis(){
+  $('.sidewaysOption').each((i,v)=>{
+    let hits=[ ]
+    [...v.text()].forEach( o => {
+      $('sidewaysComparer').each((ii,vv)=>{
+        [...vv].forEach( c => {
+          if (parseInt(o) === parseInt(c)){
+            hits.push({option:{oElement:v,oElementI:i,oMatchedNumber,
+          }
+        })
+      })
+    }
+  })
+}*/
