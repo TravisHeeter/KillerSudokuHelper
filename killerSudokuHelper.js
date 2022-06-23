@@ -55,26 +55,18 @@ document.onkeypress = function(e) {
 
 
 ////// SIDEWAYS COMPUTATION ////////
-
-// Reset the analytical area
 $('#sidewaysWrapper').remove()
-
-// Adds an input for a number that should be compared to the comparers.
 function addInput(){
-  $('#sidewaysOptions').append(`<input type='text' class='sidewaysOption' placeholder='input'/>`)
+    $('#sidewaysOptions').append(`<input type='text' class='sidewaysOption' placeholder='input' style='margin-bottom:5px'/>`)
 }
-
-// Adds an input for a number that should be compared to by the inputs.
 function addComparer(){
-  $('#sidewaysComparers').append(`<input type='text' class='sidewaysComparer' placeholder='Comparer'/>`)
+    $('#sidewaysComparers').append(`<input type='text' class='sidewaysComparer' placeholder='Comparer' style='margin-bottom:5px'/>`)
 }
-
-// Creates the analytical area, buttons and initial inputs.
 $('#fortyFives').append(`
   <div id='sidewaysWrapper'>
     <div id='sidewaysOptionsWrapper' style='padding:5px 0; margin-bottom:5px; border-top: 1px solid white; border-bottom:1px solid white'>
       Sideways Checking
-      <div id='sidewaysOptions'><input type='text' class='sidewaysOption' placeholder='Input'/></div>
+      <div id='sidewaysOptions'><input type='text' class='sidewaysOption' placeholder='Input' style='margin:5px 0'/></div>
       <input type='button' onClick='addInput()' value='Add Input'>
     </div>
     <div id='sidewaysComparersWrapper' style='padding-bottom:5px; margin-bottom:5px; border-bottom:1px solid white'>
