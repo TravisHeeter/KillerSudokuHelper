@@ -36,11 +36,18 @@ function FortyFiveSet(n){
 function appendMultiples(n=0){ 
   let ff = new FortyFiveSet(n)
 
+  // Add all the HTML to the page container
   $(`.puzzle-page-container`).append(`
     <div id="fortyFives" style="height: 100%;width: 126px;position: absolute;top: 0;right: 226px;">
-      ${ff.html.toString().split(',').join('')}
-      <div style=‘font-weight:bold’>’m’ to analyze sums</div>
-    </div>`)
+    
+ ${ff.html.toString().split(',').join('')}
+        <div style=‘font-weight:bold’>’m’ to analyze sums</div>
+        <div>
+            <input style='width:38px' type='number' id='subtract45'> - 45 = 
+            <input style='width:38px' id='less45Result'>
+        </div>
+    </div>
+    `)
 }
 
 // launches the helper
@@ -53,41 +60,9 @@ document.onkeypress = function(e) {
         fillSum()
 };
 
-
-////// SIDEWAYS COMPUTATION ////////
-$('#sidewaysWrapper').remove()
-function addInput(){
-    $('#sidewaysOptions').append(`<input type='text' class='sidewaysOption' placeholder='input' style='margin-bottom:5px'/>`)
-}
-function addComparer(){
-    $('#sidewaysComparers').append(`<input type='text' class='sidewaysComparer' placeholder='Comparer' style='margin-bottom:5px'/>`)
-}
-$('#fortyFives').append(`
-  <div id='sidewaysWrapper'>
-    <div id='sidewaysOptionsWrapper' style='padding:5px 0; margin-bottom:5px; border-top: 1px solid white; border-bottom:1px solid white'>
-      Sideways Checking
-      <div id='sidewaysOptions'><input type='text' class='sidewaysOption' placeholder='Input' style='margin:5px 0'/></div>
-      <input type='button' onClick='addInput()' value='Add Input'>
-    </div>
-    <div id='sidewaysComparersWrapper' style='padding-bottom:5px; margin-bottom:5px; border-bottom:1px solid white'>
-      <div id='sidewaysComparers'><input class='sidewaysComparer' style='margin: 5px 0' placeholder='Comparer'/></div>
-      <input type='button' onClick='addComparer()' value='Add Comparer'>
-    </div>
-    <input type='button' value='Compute' onClick='computeSidewaysAnalysis()'/>
-  </div>
-`)
-
-/*function computeSidewaysAnalysis(){
-  $('.sidewaysOption').each((i,v)=>{
-    let hits=[ ]
-    [...v.text()].forEach( o => {
-      $('sidewaysComparer').each((ii,vv)=>{
-        [...vv].forEach( c => {
-          if (parseInt(o) === parseInt(c)){
-            hits.push({option:{oElement:v,oElementI:i,oMatchedNumber,
-          }
-        })
-      })
-    }
-  })
-}*/
+// Subtract 45 box functionality
+$('#subtract45').change(()=>{
+    let v = $('#subtract45').val()
+    let result = 45-v
+    $('#less45Result').val(result)
+})
