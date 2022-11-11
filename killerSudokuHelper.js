@@ -2,6 +2,17 @@
 function fillSum(){
   var value = parseInt($(`div.combinations-sum-description`).siblings(0).text())
   removeAndAddMultiples(value)
+
+    $('#subtract45').change(()=>{
+    let v = $('#subtract45').val()
+    let result = 45-v
+    $('#less45Result').val(result)
+})
+}
+
+// Subtract 45
+function less45(e){
+    console.log(e)
 }
 
 // Remove the existing html and add new html. This works even if nothing is there, like before it's launched.
@@ -36,14 +47,13 @@ function FortyFiveSet(n){
 function appendMultiples(n=0){ 
   let ff = new FortyFiveSet(n)
 
-  // Add all the HTML to the page container
   $(`.puzzle-page-container`).append(`
     <div id="fortyFives" style="height: 100%;width: 126px;position: absolute;top: 0;right: 226px;">
     
  ${ff.html.toString().split(',').join('')}
         <div style=‘font-weight:bold’>’m’ to analyze sums</div>
         <div>
-            <input style='width:38px' type='number' id='subtract45'> - 45 = 
+            <input style='width:38px' id='subtract45'> - 45 = 
             <input style='width:38px' id='less45Result'>
         </div>
     </div>
@@ -60,7 +70,6 @@ document.onkeypress = function(e) {
         fillSum()
 };
 
-// Subtract 45 box functionality
 $('#subtract45').change(()=>{
     let v = $('#subtract45').val()
     let result = 45-v
