@@ -70,8 +70,18 @@ document.onkeypress = function(e) {
         fillSum()
 };
 
-$('#subtract45').change(()=>{
-    let v = $('#subtract45').val()
+$('#subtract45').on('input', function(){
+    let v = this.value
+    let s = v.toString()
+    let l = s.length
+    // if input is longer than 3 digits, reset to one digit - the last digit entered
+    if(l > 2){
+        v = parseInt(s[2])
+        $(this).val(v).trigger('change')
+    }
     let result = 45-v
     $('#less45Result').val(result)
+}).on('click', function(){
+    // on click, highlight input
+    $(this).select()
 })
