@@ -56,7 +56,7 @@ function appendMultiples(n=0){
             Quick Subtract 45
         </div>
         <div>
-            <input style='width:58px' id='subtract45' />-45 = 
+            <input style='width:64px' id='subtract45' />-45 = 
             <input style='width:23px' id='less45Result' />
         </div>
         <div style='padding:5px 0'>
