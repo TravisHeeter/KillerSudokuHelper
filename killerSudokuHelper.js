@@ -34,7 +34,7 @@ function FortyFiveSet(n){
         <span class=‘diff’>${this.diffs[i]}</span>
       </div>
     ` : `
-      <div class=‘nums’ >${i+1} =${e} -
+      <div class=‘nums’ >${i+1} = ${e} -
         <span class=‘sum’>${n}</span> =
         <span class=‘diff’>${this.diffs[i]}</span>
       </div>
