@@ -52,9 +52,18 @@ function appendMultiples(n=0){
     
  ${ff.html.toString().split(',').join('')}
         <div style=‘font-weight:bold’>’m’ to analyze sums</div>
+        <div style='border-top:1px solid white; width: 119px; text-align:center; padding:5px 0; margin-top:5px'>
+            Quick Subtract 45
+        </div>
         <div>
-            <input style='width:38px' id='subtract45'> - 45 = 
-            <input style='width:38px' id='less45Result'>
+            <input style='width:58px' id='subtract45' />-45 = 
+            <input style='width:23px' id='less45Result' />
+        </div>
+        <div style='padding:5px 0'>
+            Use p above to add
+        </div>
+        <div>
+            <input style='width:119px' id='addResult' />
         </div>
     </div>
     `)
@@ -72,14 +81,27 @@ document.onkeypress = function(e) {
 
 $('#subtract45').on('input', function(){
     let v = this.value
-    let s = v.toString()
-    let l = s.length
-    // if input is longer than 3 digits, reset to one digit - the last digit entered
-    if(l > 2){
-        v = parseInt(s[2])
-        $(this).val(v).trigger('change')
+    let result = 0
+    // Treat 'p' like '+' - add two numbers before subtracting 45
+    if(v.includes('p')){
+        let pi = v.indexOf('p')
+        let first = parseInt(v.substring(0,pi))
+        let last = v.substring(pi+1) !== '' ? parseInt(v.substring(pi+1)) : 0
+        let r = first + last
+        $('#addResult').val(first + ' + ' + last + ' = ' + r)
+        v = r
+    } 
+    // If input has 3 digits, remove first two
+    else {
+    
+        let s = v.toString()
+        let l = s.length
+        if(l > 2){
+            v = parseInt(s[2])
+            $(this).val(v).trigger('change')
+        }
     }
-    let result = 45-v
+    result = 45-v
     $('#less45Result').val(result)
 }).on('click', function(){
     // on click, highlight input
