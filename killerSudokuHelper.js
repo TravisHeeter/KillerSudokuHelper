@@ -103,14 +103,19 @@ function attachEventListeners(){
   $('#subtract45').on('input', function(e){
     let v = this.value
     let result = 0
-    
-    // Treat 'p' like '+' - add two numbers before subtracting 45
-    if(v.includes('p')){
-      let pi = v.indexOf('p')
-      let first = parseInt(v.substring(0,pi))
-      let last = v.substring(pi+1) !== '' ? parseInt(v.substring(pi+1)) : 0
-      let r = first + last
-      $('#addResult').val(first + ' + ' + last + ' = ' + r)
+    // Treat 'p' like '+' and 's' like '-'
+    if(v.includes('p') || v.includes('s')){
+      let calcString = v.split('p').join('+').split('s').join('-')
+      let dispString = calcString.split('+').join(' + ').split('-').join(' - ')
+      let r = 0
+      
+      // if there is no ending value, ie `11+` eval errors out, we add a 0 to the end of the string to prevent this, ie `11+0`
+      try {
+        r = eval(calcString)
+      } catch (e) {
+        r = eval(calcString + 0)
+      }
+      $('#addResult').val(dispString + ' = ' + r)
       v = r
     } 
     // If input has 3 digits, remove first two
