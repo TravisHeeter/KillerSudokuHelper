@@ -75,8 +75,8 @@ function appendMultiples(n=0){
         Quick Subtract 45
       </div>
       <div>
-        <input style='width:64px' id='subtract45' /> -45 = 
-        <input style='width:23px' id='less45Result' />
+        <input style='width:70px' id='subtract45' /> -45 = 
+        <input style='width:30px' id='less45Result' />
       </div>
       <div style='padding:5px 0'>
         Use p above to add
@@ -108,8 +108,6 @@ function attachEventListeners(){
       let calcString = v.split('p').join('+').split('s').join('-')
       let dispString = calcString.split('+').join(' + ').split('-').join(' - ')
       let r = 0
-      
-      // if there is no ending value, ie `11+` eval errors out, we add a 0 to the end of the string to prevent this, ie `11+0`
       try {
         r = eval(calcString)
       } catch (e) {
@@ -119,14 +117,14 @@ function attachEventListeners(){
       v = r
     } 
     // If input has 3 digits, remove first two
-    else {
-      let s = v.toString()
-      let l = s.length
-      if(l > 2){
-        v = parseInt(s[2])
-        $(this).val(v).trigger('change')
-      }
-    }
+    //else {
+    //  let s = v.toString()
+    //  let l = s.length
+    //  if(l > 2){
+    //    v = parseInt(s[2])
+    //    $(this).val(v).trigger('change')
+    //  }
+    //}
     result = 45-v
     $('#less45Result').val(result)
   }).on('click', function(){
