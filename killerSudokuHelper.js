@@ -26,9 +26,12 @@ function FortyFiveSet(n){
   let a = [...Array(9)]
   this.sums = a.map((e,i) => (i+1)*45)
   this.diffs = a.map((e,i) => this.sums[i]-n)
-  this.gtZed = this.diffs.filter(e=>e>=0)[0]
+  //this.gtZed = this.diffs.filter(e=>e>=0)[0]
+
+  // The least absolute value is what should be highlighted, not the first value greater than 0
+  this.leastAbsValue = Math.min(...this.diffs.map(x=>Math.abs(x)))
   this.html = this.sums.map((e,i)=>{
-    return this.diffs[i] === this.gtZed ? `
+    return Math.abs(this.diffs[i]) === this.leastAbsValue ? `
       <div class=‘nums’ style="font-weight:bold">${i+1} = ${e} -
         <span class=‘sum’>${n}</span> =
         <span class=‘diff’>${this.diffs[i]}</span>
@@ -92,11 +95,20 @@ function appendMultiples(n=0){
 // launches the helper
 $(`#fortyFives`).length ? removeAndAddMultiples() : appendMultiples()
 
+// When the input box is focused, select all the text
+$('#calculatorSumInput').on('focus',function(){
+  $('#calculatorSumInput').select()
+})
+
 // When 'm' is pressed, calculate with the current sum.
 document.onkeypress = function(e) {
   e = e || window.event;
-  if(e.which === 109)
+  
+  
+  if(e.which === 109) {
     fillSum()
+    $('#calculatorSumInput').focus()
+  }
 };
 
 function attachEventListeners(){
@@ -115,16 +127,7 @@ function attachEventListeners(){
       }
       $('#addResult').val(dispString + ' = ' + r)
       v = r
-    } 
-    // If input has 3 digits, remove first two
-    //else {
-    //  let s = v.toString()
-    //  let l = s.length
-    //  if(l > 2){
-    //    v = parseInt(s[2])
-    //    $(this).val(v).trigger('change')
-    //  }
-    //}
+    }
     result = 45-v
     $('#less45Result').val(result)
   }).on('click', function(){
