@@ -83,6 +83,27 @@ function FortyFiveSet(sumOfCages){
     <div>
       <input style='width:119px' id='addResult' />
     </div>`
+  
+  this.theorems = `
+     <div 
+      style='
+        border-top:1px solid white; 
+        width: 119px; 
+        text-align:ccenter; 
+        padding:5px 0; 
+        margin-top:5px
+      '
+    >
+      Theorems
+    </div>
+    <div>
+      <div>Aads</div>
+      <button style='width:20px' onclick='theoremHighlights(aads1)'>1</button>
+      <button style='width:20px' onclick='theoremHighlights(aads2)'>2</button>
+      <button style='width:20px' onclick='theoremHighlights(aads3)'>3</button>
+      <button style='width:20px' onclick='theoremHighlights(aads4)'>4</button>
+    </div>
+  `
 } 
 
 // Get the value of the sum of cages
@@ -134,6 +155,8 @@ function appendMultiples(sumOfCages=0){
       
       
       ${ ff.calculator2 }
+
+      ${ ff.theorems }
       
     </div>
   `)
@@ -182,4 +205,52 @@ function attachEventListeners(){
     // on click, select all
     $(this).select()
   })
+}
+
+///////// Highlight SET Theorems /////////
+const pink = '#ff000066' // pink
+const blue = '#0000ff66' // blue
+// Aad's Theorem
+const aads1 = [
+  [ 0,1,2,3,  9,10,11,12,  18,19,20,21,  27,28,29,30 ],
+  [ 40,41,42,43,44,  49,50,51,52,53,  58,59,60,61,62, 67,68,69,70,71,  76,77,78,79,80 ]
+]
+const aads2 = [
+  [ 0,1,2,3,4,  9,10,11,12,13,  18,19,20,21,22,  27,28,29,30,31 ],
+  [ 50,51,52,53,  59,60,61,62, 68,69,70,71,  77,78,79,80 ]
+]
+const aads3 = [
+  [ 5,6,7,8,  14,15,16,17,  23,24,25,26,  32,33,34,35 ],
+  [ 36,37,38,39,40,  45,46,47,48,49,  54,55,56,57,58,  63,64,65,66,67,  72,73,74,75,76 ]
+]
+const aads4 = [
+  [ 0,1,2,3,4,  9,10,11,12,13,  18,19,20,21,22,  27,28,29,30,31 ],
+  [ 50,51,52,53,  59,60,61,62, 68,69,70,71,  77,78,79,80 ]
+]
+
+// Highlight cells according to their indexes
+function theoremHighlights(arraysToHighlight){
+  let color1 = arraysToHighlight[0].length === 16 ? pink : blue
+  let color2 = arraysToHighlight[1].length === 16 ? pink : blue
+     
+  arraysToHighlight[0].forEach((v,i) => {
+    $('.cell').eq(v).css({background:color1})
+  })
+  arraysToHighlight[1].forEach((v,i) => {
+    $('.cell').eq(v).css({background:color2})
+  })
+}
+
+// Highlight a portion of the puzzle to get the indexes of highlighted cells
+// Returns an array of indexes
+function getCellIndexes(){
+  let a = []
+  $('.cell').filter((i,v)=>{
+    let bgcolor = 'rgba(120, 0, 120, 0.9)'
+    let r = $(v).css('background-color') === bgcolor
+    if(r)
+      a.push(i)
+    return r
+  })
+  return a
 }
