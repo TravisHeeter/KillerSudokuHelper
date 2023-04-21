@@ -33,55 +33,48 @@
  * @member  {Array}   html          - Holds the html of the multiples of 45, sum of cages and result of the difference.
  * @member  {String}  calculator2   - The quick calculations area that allows the user to add or subtract using p/s.
  */
-function FortyFiveSet(sumOfCages){
-  let a = [...Array(9)]                                       // An array of 9 empty elements
-  this.mults = a.map( (e,i) => (i + 1) * 45 )                 // Uses a to create 9 multiples of 45 ==> 45, 90, 125, etc.
-  this.diffs = a.map( (e,i) => this.mults[i] - sumOfCages )   // Subtracts the sum of cages from each multiple of 45
-
-  // The value closest to zero should be highlighted.
-  this.leastAbsValue = Math.min(...this.diffs.map( x => Math.abs(x) ))
-  
-  // Create the HTML
-  this.html = this.mults.map( (e,i) => {
-    return Math.abs( this.diffs[i] ) === this.leastAbsValue ? `
-      <div class=‘nums’ style="font-weight:bold">${ i+1 } = ${e} -
-        <span class=‘sum’>${ sumOfCages }</span> =
-        <span class=‘diff’>${ this.diffs[i] }</span>
-      </div>
-    ` : `
-      <div class=‘nums’ >${ i+1 } = ${e} -
-        <span class=‘sum’>${ sumOfCages }</span> =
-        <span class=‘diff’>${ this.diffs[i] }</span>
-      </div>
-    `
-    
-  })
+function FortyFiveSet(){
+  let oneThruNine =   [ 1, 2, 3, 4, 5]
+  let multiplesOf45 = [45,90,135,180,225]
+  let sumOfCages = $(".combinations-sum-container > div > div").eq(1).text().trim()
+  let multiplesMinusSum = multiplesOf45.map(e=>e-sumOfCages)
+  this.html = `
+    <div class="row" id="Travextra">
+      <div class="column">
+  ` + 
+  multiplesMinusSum.map((mms,i) => `
+        <div class='row'>
+            45 x ${i+1} = ${multiplesOf45[i]} - ${sumOfCages} = ${multiplesOf45[i] - Number(sumOfCages)}
+        </div>
+  `).join('')
   
   
   // Calculator 1 is supplied by dailykillersudoku, and automatically sums any completely highlighted cages.
   // This calc was developed because I didn't like adding in the console, pressing shift and plus was annoying
   // So I made this, which also subtracts the result from 45 - often the goal anyway.
   this.calculator2 = `
-    <div 
-      style='
-        border-top:1px solid white; 
-        width: 119px; 
-        text-align:ccenter; 
-        padding:5px 0; 
-        margin-top:5px
-      '
+    </div>
+    <div class="column" 
+      style="
+        border-left:1px solid white; 
+        width: 185px; 
+        padding: 0 25px; 
+        margin-left: 35px;
+      "
     >
-      Quick Subtract 45
-    </div>
-    <div>
-      <input style='width:70px' id='subtract45' /> -45 = 
-      <input style='width:30px' id='less45Result' />
-    </div>
-    <div style='padding:5px 0'>
-      Use p above to add
-    </div>
-    <div>
-      <input style='width:119px' id='addResult' />
+      <div class="row">
+        Quick Subtract 45
+      </div>
+      <div class="row">
+        <input style='width:70px' id='subtract45' /> -45 = 
+        <input style='width:30px' id='less45Result' />
+      </div>
+      <div class="row" style='padding:5px 0'>
+        Use p to add
+      </div>
+      <div class="row">
+        <input style='width:119px' id='addResult' />
+      </div>
     </div>`
   
   this.theorems = `
@@ -121,45 +114,18 @@ function fillSum(){
 // Remove the existing html and add new html. This works even if nothing is there, like before it's launched.
 function removeAndAddMultiples(value){
   $(`#fortyFives`).remove()
-  appendMultiples(value)
+  appendMultiples()
 } 
 
 // Creates the new FortyFiveSet object based on what's currently in the sum box.
-function appendMultiples(sumOfCages=0){ 
-  let ff = new FortyFiveSet(sumOfCages)
+function appendMultiples(){ 
+  let ff = new FortyFiveSet()
   
-  $(`.puzzle-page-container`)
-    .append(`
-      <div 
-        id="fortyFives" 
-        style="
-          height: 100%;
-          width: 126px;
-          position: absolute;
-          top: 0;
-          right: 226px;
-        "
-      >
-      
-      
-      ` 
-      /* Add the 45's HTML to the page here */ +
-      `
-      ${ ff.html.toString().split(',').join('') }
-      
-      
-      
-      <div style=‘font-weight:bold’>
-        ’m’ to analyze sums
-      </div>
-      
-      
-      ${ ff.calculator2 }
+  $('.touchscreen-play-ad-landscape').html(
+    ff.html + 
+    ff.calculator2
+  )  //  ${ ff.theorems }
 
-      ${ ff.theorems }
-      
-    </div>
-  `)
   attachEventListeners()
 }
 
