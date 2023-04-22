@@ -39,7 +39,13 @@ function FortyFiveSet(){
   let sumOfCages = $(".combinations-sum-container > div > div").eq(1).text().trim()
   let multiplesMinusSum = multiplesOf45.map(e=>e-sumOfCages)
   this.html = `
-    <div class="row" id="Travextra">
+    <div class="row" id="Travextra"
+      style="
+        left:-374px;
+        position:absolute;
+        top:-5px;
+      "
+    >
       <div class="column">
   ` + 
   multiplesMinusSum.map((mms,i) => `
