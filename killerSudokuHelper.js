@@ -63,7 +63,7 @@ function FortyFiveSet(){
     <div class="column" 
       style="
         border-left:1px solid white; 
-        width: 185px; 
+        width: 173px; 
         padding: 0 25px; 
         margin-left: 35px;
       "
@@ -84,26 +84,53 @@ function FortyFiveSet(){
     </div>`
   
   this.theorems = `
-     <div 
-      style='
-        border-top:1px solid white; 
-        width: 119px; 
-        text-align:ccenter; 
-        padding:5px 0; 
-        margin-top:5px
-      '
+    <div class="column" 
+      style="
+        border-left:1px solid white; 
+        width: 185px; 
+        padding: 0 25px;
+      "
     >
-      Theorems
-    </div>
-    <div>
-      <div>Aads</div>
-      <button style='width:20px' onclick='theoremHighlights(aads1)'>1</button>
-      <button style='width:20px' onclick='theoremHighlights(aads2)'>2</button>
-      <button style='width:20px' onclick='theoremHighlights(aads3)'>3</button>
-      <button style='width:20px' onclick='theoremHighlights(aads4)'>4</button>
+      <div class="row">
+        <a href='https://crackingthecryptic.fandom.com/wiki/Set_Equivalence_Theory' target='_blank'>Theorems</a>
+      </div>
+      <div class="row">
+        <span class='label_t'>Aads</span>
+        <button class='aads btn_t' onclick='theoremHighlights(aads1)'>1</button>
+        <button class='aads btn_t' onclick='theoremHighlights(aads2)'>2</button>
+        <button class='aads btn_t' onclick='theoremHighlights(aads3)'>3</button>
+        <button class='aads btn_t' onclick='theoremHighlights(aads4)'>4</button>
+      </div>
+      <div class="row">
+        <span class='label_t'>Att</span>
+        <button class='aads btn_t' onclick='theoremHighlights(att1)'>1</button>
+        <button class='aads btn_t' onclick='theoremHighlights(att2)'>2</button>
+        <button class='aads btn_t' onclick='theoremHighlights(att3)'>3</button>
+        <button class='aads btn_t' onclick='theoremHighlights(att4)'>4</button>
+      </div>
+      <div class="row">
+        <button class='btn_t' onclick='theoremHighlights(phistomefel)'>Phistomefel</button>
+      </div>
     </div>
   `
 } 
+
+$('#style_t').remove()
+$('body').append(`
+  <style id='style_t'>
+    .label_t{
+      display:inline-block;
+    }
+    html.touchscreen-layout button.btn_t{
+      display:inline-block;
+      height:30px;
+      padding:0;
+    }
+    html.touchscreen-layout button.aads.btn_t{
+      width:30px;
+    }
+  </style>
+`)
 
 // Get the value of the sum of cages
 function fillSum(){
@@ -129,8 +156,9 @@ function appendMultiples(){
   
   $('.touchscreen-play-ad-landscape').html(
     ff.html + 
-    ff.calculator2
-  )  //  ${ ff.theorems }
+    ff.calculator2 + 
+    ff.theorems
+  )
 
   attachEventListeners()
 }
@@ -183,34 +211,37 @@ function attachEventListeners(){
 const pink = '#ff000066' // pink
 const blue = '#0000ff66' // blue
 // Aad's Theorem
-const aads1 = [
-  [ 0,1,2,3,  9,10,11,12,  18,19,20,21,  27,28,29,30 ],
-  [ 40,41,42,43,44,  49,50,51,52,53,  58,59,60,61,62, 67,68,69,70,71,  76,77,78,79,80 ]
-]
-const aads2 = [
-  [ 0,1,2,3,4,  9,10,11,12,13,  18,19,20,21,22,  27,28,29,30,31 ],
-  [ 50,51,52,53,  59,60,61,62, 68,69,70,71,  77,78,79,80 ]
-]
-const aads3 = [
-  [ 5,6,7,8,  14,15,16,17,  23,24,25,26,  32,33,34,35 ],
-  [ 36,37,38,39,40,  45,46,47,48,49,  54,55,56,57,58,  63,64,65,66,67,  72,73,74,75,76 ]
-]
-const aads4 = [
-  [ 0,1,2,3,4,  9,10,11,12,13,  18,19,20,21,22,  27,28,29,30,31 ],
-  [ 50,51,52,53,  59,60,61,62, 68,69,70,71,  77,78,79,80 ]
-]
+const aads1 = [[ 0,1,2,3,  9,10,11,12,  18,19,20,21,  27,28,29,30 ],[ 40,41,42,43,44,  49,50,51,52,53,  58,59,60,61,62, 67,68,69,70,71,  76,77,78,79,80 ]]
+const aads2 = [[ 0,1,2,3,4,  9,10,11,12,13,  18,19,20,21,22,  27,28,29,30,31,  36,37,38,39,40 ],[ 50,51,52,53,  59,60,61,62, 68,69,70,71,  77,78,79,80 ]]
+const aads3 = [[ 5,6,7,8,  14,15,16,17,  23,24,25,26,  32,33,34,35 ],[ 36,37,38,39,40,  45,46,47,48,49,  54,55,56,57,58,  63,64,65,66,67,  72,73,74,75,76 ]]
+const aads4 = [[ 45,46,47,48,  54,55,56,57,  63,64,65,66,  72,73,74,75 ],[ 4,5,6,7,8,  13,14,15,16,17,  22,23,24,25,26,  31,32,33,34,35,  40,41,42,43,44 ]]
+
+const att1 = [[ 3,12,21,27,28,29,30 ],[ 40,41,42,43,44,49,50,51,52,53,58,59,67,68,76,77 ]]
+const att2 = [[ 50,51,52,53,59,68,77 ],[ 3,4,12,13,21,22,27,28,29,30,31,36,37,38,39,40 ]]
+const att3 = [[ 5,14,23,32,33,34,35 ],[ 36,37,38,39,40,45,46,47,48,49,57,58,66,67,75,76 ]]
+const att4 = [[ 45,46,47,48,57,66,75 ],[ 4,5,13,14,22,23,31,32,33,34,35,40,41,42,43,44 ]]
+
+const phistomefel = [[ 0,1,9,10,  7,8,16,17,  63,64,72,73,  70,71,79,80,81 ],[ 20,21,22,23,24,  33,42,51,60,  59,58,57,56,  47,38,29 ]]
 
 // Highlight cells according to their indexes
 function theoremHighlights(arraysToHighlight){
+  
+  removeHighlights()
+  
   let color1 = arraysToHighlight[0].length === 16 ? pink : blue
   let color2 = arraysToHighlight[1].length === 16 ? pink : blue
      
   arraysToHighlight[0].forEach((v,i) => {
-    $('.cell').eq(v).css({background:color1})
+    $('.cell').eq(v).css({background:pink})
   })
   arraysToHighlight[1].forEach((v,i) => {
-    $('.cell').eq(v).css({background:color2})
+    $('.cell').eq(v).css({background:blue})
   })
+  
+}
+
+function removeHighlights(){
+  $('.cell').css({background:`linear-gradient(transparent, transparent), rgb(33, 38, 50)`})
 }
 
 // Highlight a portion of the puzzle to get the indexes of highlighted cells
